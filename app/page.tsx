@@ -1,5 +1,6 @@
 import { getFruits } from "@/data/db";
-import { FormEvent, Suspense } from "react";
+import { Suspense } from "react";
+import { FruitsForm } from "./fruits-form";
 
 export default function Home() {
   return (
@@ -15,14 +16,8 @@ export default function Home() {
 async function Fruits() {
   const fruits = await getFruits();
 
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
-    const formData = new FormData(event.currentTarget);
-    const fruits = formData.getAll("fruits");
-    alert(JSON.stringify(fruits, null, 2));
-  }
-
   return (
-    <form onSubmit={onSubmit}>
+    <FruitsForm>
       <ul role="list">
         {fruits.map((fruit) => {
           return (
@@ -33,7 +28,7 @@ async function Fruits() {
         })}
       </ul>
       <button type="submit">Submit</button>
-    </form>
+    </FruitsForm>
   );
 }
 
