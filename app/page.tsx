@@ -1,10 +1,13 @@
 import { getFruits } from "@/data/db";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
     <main>
       <div>All the fruits!</div>
-      <Fruits />
+      <Suspense fallback={<p>Waiting for fruits...</p>}>
+        <Fruits />
+      </Suspense>
     </main>
   );
 }
