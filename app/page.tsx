@@ -1,6 +1,5 @@
 import { getFruits } from "@/data/db";
 import { Suspense } from "react";
-import { FruitsForm } from "./fruits-form";
 
 export default function Home() {
   return (
@@ -16,8 +15,14 @@ export default function Home() {
 async function Fruits() {
   const fruits = await getFruits();
 
+  async function buyFruitsAction(formData: FormData) {
+    "use server";
+    const fruits = formData.getAll("fruits");
+    console.log(fruits);
+  }
+
   return (
-    <FruitsForm>
+    <form action={buyFruitsAction}>
       <ul role="list">
         {fruits.map((fruit) => {
           return (
@@ -28,7 +33,7 @@ async function Fruits() {
         })}
       </ul>
       <button type="submit">Submit</button>
-    </FruitsForm>
+    </form>
   );
 }
 
